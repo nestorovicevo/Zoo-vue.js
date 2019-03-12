@@ -28,7 +28,7 @@
         <th>Birthday</th>
         <th>Sector</th>
       </tr>
-      <tr v-for="(animal, index) in animals" :key="animal">
+      <tr v-for="(animal, index) in animals" :key="index">
         <td>{{animal.species}}</td>
         <td>{{animal.name}}</td>
         <td>{{animal.birthday? animal.birthday : 'Unknown'}}</td>
@@ -36,6 +36,17 @@
         <button @click="removeAnimal(index)">Remove</button>
         <button @click="moveToTop(index)">Move to top</button>
         
+      </tr>
+    </table>
+
+    <h1>Sectors</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Sectors</th>
+      </tr>
+      <tr v-for="sector in sectors" :key="sector">
+        <td>{{sector}}</td>
+        <button @click="listOfAnimals(sector)">List of animals</button>
       </tr>
     </table>
   </div>
@@ -79,7 +90,24 @@ export default {
 
     addAnimal(){
       this.animals.push({...this.animal});
+    },
 
+    listOfAnimals(sector){
+      // let animalSector = '';
+      // for (let animalSector = 0; animalSector < array.length; animalSector++) {
+      //   const element = array[animalSector];
+        
+      // }
+      //   if (this.animal.sector === sector) {
+      //       return this.animal;
+      //     }
+      //     return alert(`Animals in this sector: ${this.animal.species}`)
+
+      let sectorAnimal = "";
+      this.animals.forEach(element => {
+        if (element.sector === sector) sectorAnimal += element.name + " ";
+      });
+      alert(sectorAnimal);
     
     }
   }
