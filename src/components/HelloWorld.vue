@@ -3,6 +3,11 @@
 
     <form @submit.prevent="addAnimal">
       <div>
+        Field:<br>
+        <select v-model="animal.sector">
+          <option v-for="sector in sectors" :key="sector" :value="sector">{{sector}}</option>
+        </select>
+        <br>
         Species:<br>
         <input type="text" v-model="animal.species" name="species">
         <br>
@@ -21,11 +26,13 @@
         <th>species</th>
         <th>Name</th> 
         <th>Birthday</th>
+        <th>Sector</th>
       </tr>
       <tr v-for="(animal, index) in animals" :key="animal">
         <td>{{animal.species}}</td>
         <td>{{animal.name}}</td>
         <td>{{animal.birthday? animal.birthday : 'Unknown'}}</td>
+        <td>{{animal.sector}}</td>
         <button @click="removeAnimal(index)">Remove</button>
         <button @click="moveToTop(index)">Move to top</button>
         
@@ -47,8 +54,13 @@ export default {
        animal : {
         name : '',
         species : '',
-        birthday : ''
-        }
+        birthday : '',
+        sector: ''
+        },
+
+        sectors : [
+          'divlje zivotinje', 'domace zivotinje'
+        ]
       }
   },
 
@@ -67,6 +79,7 @@ export default {
 
     addAnimal(){
       this.animals.push({...this.animal});
+
     
     }
   }
