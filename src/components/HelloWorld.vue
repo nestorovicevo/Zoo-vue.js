@@ -1,13 +1,29 @@
 <template>
   <div>
+
+    <form @submit.prevent="addAnimal">
+      <div>
+        Species:<br>
+        <input type="text" v-model="animal.species" name="species">
+        <br>
+        Name:<br>
+        <input type="text" v-model="animal.name" name="name">
+        <br>
+        Birthday:<br>
+        <input type="text" v-model="animal.birthday" name="birthday">
+        <br>
+      </div>
+     <button type="submit">Add animal</button>
+    </form>
+
     <table style="width:100%">
       <tr>
-        <th>Specie</th>
+        <th>species</th>
         <th>Name</th> 
         <th>Birthday</th>
       </tr>
-      <tr v-for="animal in animals" :key="animal">
-        <td>{{animal.specie}}</td>
+      <tr v-for="(animal, index) in animals" :key="animal">
+        <td>{{animal.species}}</td>
         <td>{{animal.name}}</td>
         <td>{{animal.birthday? animal.birthday : 'Unknown'}}</td>
         <button @click="removeAnimal(index)">Remove</button>
@@ -22,12 +38,18 @@
 export default {
   data(){
     return{
-      animals : [{specie:"Snake", name:"Cruela", birthday:"20.03.2010"},
-         {specie:"Bear", name:"Baloo", birthday:""},
-         {specie:"Tiger", name:"Kan", birthday:"30.05.2013"},
-         {specie:"Cat", name:"Tom", birthday:"15.04.2012"},
-         {specie:"Dog", name:"Sargo", birthday:"10.02.2018"}]
-    }
+      animals : [{species:"Snake", name:"Cruela", birthday:"20.03.2010"},
+         {species:"Bear", name:"Baloo", birthday:""},
+         {species:"Tiger", name:"Kan", birthday:"30.05.2013"},
+         {species:"Cat", name:"Tom", birthday:"15.04.2012"},
+         {species:"Dog", name:"Sargo", birthday:"10.02.2018"}],
+    
+       animal : {
+        name : '',
+        species : '',
+        birthday : ''
+        }
+      }
   },
 
   methods: {
@@ -41,6 +63,11 @@ export default {
 
     removeAnimal(index){
       this.animals.splice(index, 1);
+    },
+
+    addAnimal(){
+      this.animals.push({...this.animal});
+    
     }
   }
 }
